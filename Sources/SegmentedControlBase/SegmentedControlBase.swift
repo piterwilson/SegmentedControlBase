@@ -1,5 +1,5 @@
 //
-//  SliderSegmentedControlBase.swift
+//  SegmentedControlBase.swift
 //
 //
 //  Created by Juan Carlos Ospina Gonzalez on 31/05/2021.
@@ -18,16 +18,16 @@ import SwiftUI
 
  **Example**
  ```swift
- /// A sample implementation of `SliderSegmentedControlBase`
- struct ExampleSliderSegmentedControl: View {
+ /// A sample implementation of `SegmentedControlBase`
+ struct ExampleSegmentedControl: View {
      /// Data source for the segments in the control
      @State var segments: [String]
      /// A `Int` indicating which segement is selected
      @State var selection: Int = 0
-     /// Indicates whether or not `ExampleSliderSegmentedControl` is enabled
+     /// Indicates whether or not `ExampleSegmentedControl` is enabled
      @State var isEnabled: Bool = true
      var body: some View {
-         SliderSegmentedControlBase(
+         SegmentedControlBase(
              segments: self.segments,
              selectedIndex: self.$selection,
              isEnabled: self.$isEnabled,
@@ -46,7 +46,7 @@ import SwiftUI
  }
  ```
  */
-public struct SliderSegmentedControlBase<Segment: View, SegmentBackground: View>: View {
+public struct SegmentedControlBase<Segment: View, SegmentBackground: View>: View {
     
     // MARK: Properties
     // MARK: Private
@@ -120,16 +120,16 @@ public struct SliderSegmentedControlBase<Segment: View, SegmentBackground: View>
     }
 }
 
-/// A sample implementation of `SliderSegmentedControlBase`
-struct ExampleSliderSegmentedControl: View {
+/// A sample implementation of `SegmentedControlBase`
+struct ExampleSegmentedControl: View {
     /// Data source for the segments in the control
     @State var segments: [String]
     /// A `Int` indicating which segement is selected
     @State var selection: Int = 0
-    /// Indicates whether or not `ExampleSliderSegmentedControl` is enabled
+    /// Indicates whether or not `ExampleSegmentedControl` is enabled
     @State var isEnabled: Bool = true
     var body: some View {
-        SliderSegmentedControlBase(
+        SegmentedControlBase(
             segments: self.segments,
             selectedIndex: self.$selection,
             isEnabled: self.$isEnabled,
@@ -151,22 +151,22 @@ struct SegmentedControl_Previews: PreviewProvider {
     @State static var selection: Int = 0
     static var previews: some View {
         Group {
-            ExampleSliderSegmentedControl(segments: ["M", "T", "W", "T", "F"])
+            ExampleSegmentedControl(segments: ["M", "T", "W", "T", "F"])
                 .background(Color(.systemBackground))
                 .previewLayout(.fixed(width: 320.0, height: 37.0))
                 .environment(\.colorScheme, .light)
             
-            ExampleSliderSegmentedControl(segments: ["M", "T", "W", "T", "F"], isEnabled: false)
+            ExampleSegmentedControl(segments: ["M", "T", "W", "T", "F"], isEnabled: false)
                 .background(Color(.systemBackground))
                 .previewLayout(.fixed(width: 320.0, height: 37.0))
                 .environment(\.colorScheme, .light)
             
-            ExampleSliderSegmentedControl(segments: ["M", "T", "W", "T", "F"])
+            ExampleSegmentedControl(segments: ["M", "T", "W", "T", "F"])
                 .background(Color(.systemBackground))
                 .previewLayout(.fixed(width: 320.0, height: 37.0))
                 .environment(\.colorScheme, .dark)
             
-            ExampleSliderSegmentedControl(segments: ["M", "T", "W", "T", "F"], isEnabled: false)
+            ExampleSegmentedControl(segments: ["M", "T", "W", "T", "F"], isEnabled: false)
                 .background(Color(.systemBackground))
                 .previewLayout(.fixed(width: 320.0, height: 37.0))
                 .environment(\.colorScheme, .dark)
