@@ -101,9 +101,6 @@ public struct SegmentedControlBase<Segment: View, SegmentBackground: View>: View
                         Button(
                             action: {
                                 withAnimation {
-                                    guard self.isEnabled else {
-                                        return
-                                    }
                                     self.selectedSegmentIndex = index
                                 }
                             },
@@ -113,6 +110,7 @@ public struct SegmentedControlBase<Segment: View, SegmentBackground: View>: View
                                     self.selectedSegmentIndex == index,
                                     self.isEnabled)
                             })
+                            .disabled(!self.isEnabled)
                             .frame(minWidth: 0, maxWidth: .infinity)
                             .padding(EdgeInsets(top: 0.0, leading: index == 0 ? 0.0 : interimSpace, bottom: 0.0, trailing: 0.0))
                             .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
