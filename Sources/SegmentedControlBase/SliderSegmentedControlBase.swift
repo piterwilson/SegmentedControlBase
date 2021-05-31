@@ -58,19 +58,34 @@ public struct SliderSegmentedControlBase<Segment: View, SegmentBackground: View>
     
     // MARK: Public
     /// Data source for the segments in the control
-    @State var segments: [String]
+    @State public var segments: [String]
     /// Selected index in the control
-    @Binding var selectedSegmentIndex: Int
+    @Binding public var selectedSegmentIndex: Int
     /// Whether or not the control is enabled
-    @Binding var isEnabled: Bool
+    @Binding public var isEnabled: Bool
     /// Amount of space between segments
-    @State var interimSpace: CGFloat = 0.0
+    @State public var interimSpace: CGFloat
     /// A function that builds the views used for each of the segments. The first parameter passed is a `String` contaning a value for `segments`, the second parameter is a `Bool` indicating whether the segment is selected or not and the third parameter is a `Bool` indicating whether or not the control is enabled.
     @ViewBuilder
-    var segmentBuilder: (String /* Text */, Bool /* isSelected */, Bool /* isEnabled */ ) -> Segment
+    public var segmentBuilder: (String /* Text */, Bool /* isSelected */, Bool /* isEnabled */ ) -> Segment
     /// A function that builds the view used as the background for the active segment. The parameter is a `Bool` indicating whether or not the control is enabled.
     @ViewBuilder
-    var activeSegmentBackgroundBuilder: (Bool /* isEnabled */) -> SegmentBackground
+    public var activeSegmentBackgroundBuilder: (Bool /* isEnabled */) -> SegmentBackground
+    
+    public init(
+        segments: [String],
+        selectedIndex: Binding<Int>,
+        isEnabled: Binding<Bool>,
+        interimSpace: CGFloat = 0.0,
+        segmentBuilder: @escaping (String /* Text */, Bool /* isSelected */, Bool /* isEnabled */ ) -> Segment,
+        activeSegmentBackgroundBuilder: @escaping (Bool /* isEnabled */) -> SegmentBackground) {
+        self.segments = segments
+        self._selectedSegmentIndex = selectedIndex
+        self._isEnabled = isEnabled
+        self.interimSpace = interimSpace
+        self.segmentBuilder = segmentBuilder
+        self.activeSegmentBackgroundBuilder = activeSegmentBackgroundBuilder
+    }
     
     public var body: some View {
         GeometryReader { geometry in
@@ -115,7 +130,7 @@ struct ExampleSliderSegmentedControl: View {
     var body: some View {
         SliderSegmentedControlBase(
             segments: self.segments,
-            selectedSegmentIndex: self.$selection,
+            selectedIndex: self.$selection,
             isEnabled: self.$isEnabled,
             interimSpace: 5.0,
             segmentBuilder: { (text, isSelected, isEnabled) in
