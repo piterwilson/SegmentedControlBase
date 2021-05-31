@@ -18,31 +18,32 @@ import SwiftUI
 
  **Example**
  ```swift
-  struct ExampleSliderSegmentedControl: View {
-      /// Data source for the segments in the control
-      @State var segments: [String]
-      /// A `Int` indicating which segement is selected
-      @State var selection: Int = 0
-      /// Indicates whether or not `ExampleSliderSegmentedControl` is enabled
-      @State var isEnabled: Bool = true
-      var body: some View {
-          SliderSegmentedControlBase(
-              segments: self.segments,
-              selectedSegmentIndex: self.$selection,
-              isEnabled: self.$isEnabled,
-              interimSpace: 5.0,
-              segmentBuilder: { (text, isSelected, isEnabled) in
-                  Text(text)
-                      .foregroundColor(isEnabled ? isSelected ? .blue : .gray : .gray)
-                      .opacity(isEnabled ? 1.0 : 0.5)
-              },
-              activeSegmentBackgroundBuilder: {(isEnabled) in
-                  Capsule()
-                      .foregroundColor(isEnabled ? .primary : .secondary)
-                      .opacity(isEnabled ? 1.0 : 0.5)
-              })
-      }
-  }
+ /// A sample implementation of `SliderSegmentedControlBase`
+ struct ExampleSliderSegmentedControl: View {
+     /// Data source for the segments in the control
+     @State var segments: [String]
+     /// A `Int` indicating which segement is selected
+     @State var selection: Int = 0
+     /// Indicates whether or not `ExampleSliderSegmentedControl` is enabled
+     @State var isEnabled: Bool = true
+     var body: some View {
+         SliderSegmentedControlBase(
+             segments: self.segments,
+             selectedIndex: self.$selection,
+             isEnabled: self.$isEnabled,
+             interimSpace: 5.0,
+             segmentBuilder: { (text, isSelected, isEnabled) in
+                 Text(text)
+                     .foregroundColor(isEnabled ? isSelected ? .blue : .gray : .gray)
+                     .opacity(isEnabled ? 1.0 : 0.5)
+             },
+             activeSegmentBackgroundBuilder: {(isEnabled) in
+                 Capsule()
+                     .foregroundColor(isEnabled ? .primary : .secondary)
+                     .opacity(isEnabled ? 1.0 : 0.5)
+             })
+     }
+ }
  ```
  */
 public struct SliderSegmentedControlBase<Segment: View, SegmentBackground: View>: View {
