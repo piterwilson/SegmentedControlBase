@@ -101,6 +101,9 @@ public struct SegmentedControlBase<Segment: View, SegmentBackground: View>: View
                         Button(
                             action: {
                                 withAnimation {
+                                    guard self.isEnabled else {
+                                        return
+                                    }
                                     self.selectedSegmentIndex = index
                                 }
                             },
