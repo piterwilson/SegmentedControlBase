@@ -89,32 +89,30 @@ public struct SegmentedControlBase<Segment: View, SegmentBackground: View>: View
     }
     
     public var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                // active segment background
-                activeSegmentBackgroundBuilder(self.isEnabled)
-                    .frame(width: segmentSize.width)
-                    .offset(x: activeSegmentXBackgroundOffsset)
-                
-                HStack(spacing: 0.0) {
-                    ForEach(0 ..< segments.count) { index in
-                        Button(
-                            action: {
-                                withAnimation {
-                                    self.selectedSegmentIndex = index
-                                }
-                            },
-                            label: {
-                                segmentBuilder(
-                                    segments[index],
-                                    self.selectedSegmentIndex == index,
-                                    self.isEnabled)
-                            })
-                            .disabled(!self.isEnabled)
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding(EdgeInsets(top: 0.0, leading: index == 0 ? 0.0 : interimSpace, bottom: 0.0, trailing: 0.0))
-                            .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
-                    }
+        ZStack(alignment: .leading) {
+            // active segment background
+            activeSegmentBackgroundBuilder(self.isEnabled)
+                .frame(width: segmentSize.width)
+                .offset(x: activeSegmentXBackgroundOffsset)
+            
+            HStack(spacing: 0.0) {
+                ForEach(0 ..< segments.count) { index in
+                    Button(
+                        action: {
+                            withAnimation {
+                                self.selectedSegmentIndex = index
+                            }
+                        },
+                        label: {
+                            segmentBuilder(
+                                segments[index],
+                                self.selectedSegmentIndex == index,
+                                self.isEnabled)
+                        })
+                        .disabled(!self.isEnabled)
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .padding(EdgeInsets(top: 0.0, leading: index == 0 ? 0.0 : interimSpace, bottom: 0.0, trailing: 0.0))
+                        .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
                 }
             }
         }
