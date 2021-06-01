@@ -90,12 +90,12 @@ public struct SegmentedControlBase<Segment: View, SegmentBackground: View>: View
     
     public var body: some View {
         ZStack(alignment: .leading) {
-            // active segment background
+
             activeSegmentBackgroundBuilder(self.isEnabled)
                 .frame(width: segmentSize.width)
                 .offset(x: activeSegmentXBackgroundOffsset)
             
-            HStack(spacing: 0.0) {
+            HStack(spacing: interimSpace) {
                 ForEach(0 ..< segments.count) { index in
                     Button(
                         action: {
@@ -111,7 +111,6 @@ public struct SegmentedControlBase<Segment: View, SegmentBackground: View>: View
                         })
                         .disabled(!self.isEnabled)
                         .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding(EdgeInsets(top: 0.0, leading: index == 0 ? 0.0 : interimSpace, bottom: 0.0, trailing: 0.0))
                         .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
                 }
             }
